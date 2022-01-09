@@ -15,11 +15,12 @@
  */
 package com.android.messaging.ui.contact;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Rect;
 import android.os.AsyncTask;
-import androidx.appcompat.R;
+//import androidx.appcompat.R;
 import android.text.Editable;
 import android.text.TextPaint;
 import android.text.TextWatcher;
@@ -33,6 +34,7 @@ import android.widget.TextView;
 import com.android.ex.chips.RecipientEditTextView;
 import com.android.ex.chips.RecipientEntry;
 import com.android.ex.chips.recipientchip.DrawableRecipientChip;
+import com.android.messaging.R;
 import com.android.messaging.datamodel.data.ParticipantData;
 import com.android.messaging.util.ContactRecipientEntryUtils;
 import com.android.messaging.util.ContactUtil;
@@ -100,6 +102,7 @@ public class ContactRecipientAutoCompleteView extends RecipientEditTextView {
 
     private static final String TEXT_HEIGHT_SAMPLE = "a";
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     public ContactRecipientAutoCompleteView(final Context context, final AttributeSet attrs) {
         super(new ContextThemeWrapper(context, R.style.ColorAccentGrayOverrideStyle), attrs);
 
@@ -140,9 +143,11 @@ public class ContactRecipientAutoCompleteView extends RecipientEditTextView {
      * An AsyncTask that cleans up contact chips on every chips commit (i.e. get or create a new
      * conversation with the given chips).
      */
+    @SuppressLint("StaticFieldLeak")
     private class AsyncContactChipSanitizeTask extends
             AsyncTask<Void, ChipReplacementTuple, Integer> {
 
+        @SuppressLint("VisibleForTests")
         @Override
         protected Integer doInBackground(final Void... params) {
             final DrawableRecipientChip[] recips = getText()
@@ -156,7 +161,7 @@ public class ContactRecipientAutoCompleteView extends RecipientEditTextView {
                                 ContactRecipientEntryUtils.isSendToDestinationContact(entry)) {
                             // This is a generated/send-to contact chip, try to look it up and
                             // display a chip for the corresponding local contact.
-                            try (final Cursor lookupResult =
+                            try (@SuppressLint("VisibleForTests") final Cursor lookupResult =
                                     ContactUtil.lookupDestination(
                                                     getContext(), entry.getDestination())
                                             .performSynchronousQuery()) {
