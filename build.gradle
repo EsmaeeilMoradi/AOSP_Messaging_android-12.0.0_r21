@@ -1,0 +1,156 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.2.1'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+tasks.register("updateGradleWrapper", Wrapper) {
+    // https://docs.gradle.org/current/release-notes.html
+    // https://github.com/gradle/gradle/releases
+    gradleVersion = '7.0'
+    distributionUrl = "https://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
+}
+
+//==================================================================================================
+
+apply plugin: 'com.android.application'
+
+android {
+
+    signingConfigs {
+        debug {
+            storeFile file('/home/esmaeeil/Downloads/key_final.jks')
+            keyAlias 'shared'
+        }
+    }
+    compileSdkVersion 31
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        applicationId "com.android.messaging"
+
+        minSdkVersion 28
+        targetSdkVersion 30
+
+        renderscriptTargetApi 19
+        renderscriptSupportModeEnabled true
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix ".dev"
+
+            debuggable true
+            minifyEnabled false
+            shrinkResources false
+            zipAlignEnabled false
+        }
+        debugProguard {
+            applicationIdSuffix ".dev"
+
+            debuggable true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.cfg'
+            minifyEnabled true
+            shrinkResources true
+            zipAlignEnabled true
+        }
+        release {
+            debuggable false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.cfg'
+            minifyEnabled true
+            shrinkResources true
+            zipAlignEnabled true
+        }
+    }
+
+    dexOptions {
+        dexInProcess true
+        preDexLibraries true
+    }
+
+    lintOptions {
+        baseline file("lint-baseline.xml")
+
+        abortOnError true
+        checkAllWarnings true
+        showAll true
+
+        warningsAsErrors true
+
+        // HTML report is enough (can be found inside build/reports/)
+        xmlReport false
+
+        // do not warn about translations
+        disable 'MissingTranslation', 'ExtraTranslation'
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/LICENSE-FIREBASE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude '.readme'
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+
+            aidl.srcDirs = ['src']
+            assets.srcDirs = ['assets']
+            java.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            resources.srcDirs = ['res']
+        }
+    }
+}
+configurations {
+    all*.exclude group: 'com.google.guava', module: 'listenablefuture'
+}
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.4.0'
+    implementation 'androidx.collection:collection:1.2.0'
+    implementation 'androidx.core:core:1.7.0'
+    implementation 'androidx.fragment:fragment:1.4.0'
+    implementation 'androidx.media:media:1.4.3'
+    implementation 'androidx.legacy:legacy-support-core-utils:1.0.0'
+    implementation 'androidx.legacy:legacy-support-core-ui:1.0.0'
+    implementation 'androidx.palette:palette:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.0'
+    implementation 'androidx.viewpager:viewpager:1.0.0'
+    implementation 'androidx.legacy:legacy-support-v13:1.0.0'
+    implementation 'androidx.annotation:annotation:1.3.0'
+
+    api 'com.google.guava:guava:28.2-android'
+
+    api 'com.googlecode.libphonenumber:libphonenumber:8.12.4'
+    api 'com.googlecode.libphonenumber:geocoder:2.140'
+    api 'com.googlecode.libphonenumber:prefixmapper:2.140'
+    api 'com.googlecode.libphonenumber:carrier:1.130'
+    implementation project(path: ':photoviewer')
+    implementation project(path: ':colorpicker')
+    implementation project(path: ':common')
+    implementation project(path: ':chips')
+    implementation project(path: ':framesequence')
+    implementation project(path: ':vcard')
+
+}

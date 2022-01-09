@@ -1,0 +1,6 @@
+include ':colorpicker'
+include ':photoviewer'
+include ':chips'
+include ':common'
+include ':framesequence'
+include ':vcard'
