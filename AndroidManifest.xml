@@ -15,6 +15,7 @@
     limitations under the License.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.android.messaging"
     android:installLocation="internalOnly">
 
@@ -41,7 +42,8 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
@@ -81,7 +83,7 @@
 
         <activity
             android:name=".ui.PermissionCheckActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="fullSensor"
             android:configChanges="orientation|screenSize|keyboardHidden" />
 
         <!-- Launches a conversation (ensures correct app name shown in recents) -->
@@ -184,7 +186,8 @@
             android:theme="@style/BugleTheme.SettingsActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="user"
-            android:parentActivityName="com.android.messaging.ui.appsettings.SettingsActivity">
+            android:parentActivityName="com.android.messaging.ui.appsettings.SettingsActivity"
+            android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:exported="true"
@@ -211,7 +214,8 @@
                 <action android:name="android.intent.action.SEND_MULTIPLE" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="text/plain" />
-                <data android:mimeType="text/x-vCard" />
+                <data android:mimeType="text/x-vCard"
+                    tools:ignore="AppLinkUrlError" />
                 <data android:mimeType="text/x-vcard" />
                 <data android:mimeType="image/*" />
                 <data android:mimeType="audio/*" />
@@ -526,7 +530,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name="androidx.appcompat.mms.MmsService"/>
+<!--        <service android:name="androidx.appcompat.mms.MmsService"/>-->
     </application>
 
 </manifest>
