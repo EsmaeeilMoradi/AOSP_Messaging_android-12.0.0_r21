@@ -34,8 +34,8 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file('/home/esmaeeil/Downloads/key_final.jks')
-            keyAlias 'shared'
+            storeFile file('/home/esmaeeil/Downloads/keyring.jks')
+            keyAlias 'platform'
         }
     }
     compileSdkVersion 31
@@ -51,34 +51,35 @@ android {
         minSdkVersion 28
         targetSdkVersion 30
 
+        versionCode 10005000
         renderscriptTargetApi 19
         renderscriptSupportModeEnabled true
     }
 
     buildTypes {
         debug {
-            applicationIdSuffix ".dev"
-
-            debuggable true
-            minifyEnabled false
-            shrinkResources false
-            zipAlignEnabled false
+//            applicationIdSuffix ".dev"
+//
+//            debuggable true
+//            minifyEnabled false
+//            shrinkResources false
+//            zipAlignEnabled false
         }
         debugProguard {
-            applicationIdSuffix ".dev"
-
-            debuggable true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.cfg'
-            minifyEnabled true
-            shrinkResources true
-            zipAlignEnabled true
+//            applicationIdSuffix ".dev"
+//
+//            debuggable true
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.cfg'
+//            minifyEnabled true
+//            shrinkResources true
+//            zipAlignEnabled true
         }
         release {
-            debuggable false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.cfg'
-            minifyEnabled true
-            shrinkResources true
-            zipAlignEnabled true
+//            debuggable false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.cfg'
+//            minifyEnabled true
+//            shrinkResources true
+//            zipAlignEnabled true
         }
     }
 
