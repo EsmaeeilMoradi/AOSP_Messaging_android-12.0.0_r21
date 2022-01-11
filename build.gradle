@@ -147,11 +147,11 @@ dependencies {
     api 'com.googlecode.libphonenumber:geocoder:2.140'
     api 'com.googlecode.libphonenumber:prefixmapper:2.140'
     api 'com.googlecode.libphonenumber:carrier:1.130'
-    implementation project(path: ':photoviewer')
-    implementation project(path: ':colorpicker')
-    implementation project(path: ':common')
-    implementation project(path: ':chips')
-    implementation project(path: ':framesequence')
-    implementation project(path: ':vcard')
+    implementation project(path: ':external:photoviewer')
+    implementation project(path: ':external:colorpicker')
+    implementation project(path: ':external:common')
+    implementation project(path: ':external:chips')
+    implementation project(path: ':external:framesequence')
+    implementation project(path: ':external:vcard')
 
 }
